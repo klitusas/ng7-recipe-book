@@ -1,7 +1,8 @@
 import { Recipe } from '../recipes/recipe.model'
-import { TouchSequence } from 'selenium-webdriver';
+import { EventEmitter } from '@angular/core';
 
 export class RecipeService {
+    recipeSelected = new EventEmitter<Recipe>();
     //must be an array of Recipes (Recipe[])
     //let make it private so that you cant access it from outside
    private recipes: Recipe[] = [ 

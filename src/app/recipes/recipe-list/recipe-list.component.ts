@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model'
 import { RecipeService } from '../recipe.service';
 @Component({
@@ -8,7 +8,7 @@ import { RecipeService } from '../recipe.service';
   //dont need to provide the parent component has it injected
 })
 export class RecipeListComponent implements OnInit {
-  @Output() recipeWasSelected = new EventEmitter<Recipe>();
+
    //must be an array of Recipes (Recipe[])
   recipes: Recipe[];
 
@@ -18,7 +18,5 @@ export class RecipeListComponent implements OnInit {
   ngOnInit() {
     this.recipes = this.recipeService.getRecipes();
   }
-  onRecipeSelected(recipe: Recipe){
-    this.recipeWasSelected.emit(recipe);
-  }
+
 }
