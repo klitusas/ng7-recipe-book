@@ -10,8 +10,16 @@
         our links on smaller screens.-->
         <div class="navbar-default">
         <ul class="nav navbar-nav">
-            <li><a href="#" (click)="onSelect('recipe')">Recipes</a></li>
-            <li><a href="#" (click)="onSelect('shopping-list')">Shopping list</a></li>
+            <!-- <li><a href="#" (click)="onSelect('recipe')">Recipes</a></li>
+            <li><a href="#" (click)="onSelect('shopping-list')">Shopping list</a></li> -->
+            <li><a 
+                [routerLink]="['recipes']" 
+                routerLinkActive="active"
+                (click)="onSelect('recipe')">Recipes</a></li>
+            <li><a 
+                [routerLink]="['shopping-list']" 
+                routerLinkActive="active"
+                (click)="onSelect('shopping-list')">Shopping list</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown" appDropdown>
