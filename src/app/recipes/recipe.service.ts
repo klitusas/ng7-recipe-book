@@ -5,7 +5,12 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable()
 export class RecipeService {
-    recipeSelected = new EventEmitter<Recipe>();
+    /** 
+     * Replaced with 
+    */
+    // recipeSelected = new EventEmitter<Recipe>();
+    
+
     //must be an array of Recipes (Recipe[])
     //let make it private so that you cant access it from outside
    private recipes: Recipe[] = [ 
