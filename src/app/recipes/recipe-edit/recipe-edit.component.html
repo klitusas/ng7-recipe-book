@@ -31,13 +31,13 @@
               id="imagePath"
               formControlName="imagePath"
               class="form-control"
-              (change)="onUrlChanged()">
+              #imagePath>
           </div>
         </div>
       </div>
       <div class="row" *ngIf="imagePath">
         <div class="col-xs-12">
-          <img [src]="imagePath" class="img-responsive" alt="">
+          <img [src]="imagePath.value" class="img-responsive" alt="">
         </div>
       </div>
       <div class="row">

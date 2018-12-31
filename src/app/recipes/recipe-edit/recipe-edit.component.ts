@@ -17,7 +17,6 @@ export class RecipeEditComponent implements OnInit {
    * For using reactive approach we need FormGroup
   */
   recipeForm: FormGroup;
-  imagePath: string;
 
   constructor(private route: ActivatedRoute, private recipeService: RecipeService, private router: Router) { }
 
@@ -30,16 +29,12 @@ export class RecipeEditComponent implements OnInit {
       }
     )
   }
-  onUrlChanged() {
-    this.imagePath = this.recipeForm.value.imagePath
-  }
   onSubmit() {
     // const newRecipe = new Recipe(
     //   this.recipeForm.value['name'], 
     //   this.recipeForm.value['description'],
     //   this.recipeForm.value['imagePath'],
     //   this.recipeForm.value['ingredients'] )
-    console.log(this.recipeForm)
     if (this.editMode) {
       this.recipeService.updateRecipe(this.id, this.recipeForm.value)
     } else {
@@ -77,7 +72,6 @@ export class RecipeEditComponent implements OnInit {
     let recipeIngredients = new FormArray([])
     if (this.editMode) {
       const recipe = this.recipeService.getRecipe(this.id);
-      this.imagePath = recipe.imagePath;
       recipeName = recipe.name;
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
