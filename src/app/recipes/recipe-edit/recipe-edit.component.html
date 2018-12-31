@@ -3,7 +3,10 @@
     <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
       <div class="row">
           <div class="col-xs-12">
-            <button type="submit" class="btn btn-success">Save</button>
+            <button 
+              type="submit" 
+              class="btn btn-success"
+              [disabled]="recipeForm.invalid">Save</button>
             <button type="button" class="btn btn-danger">Cancel</button>
           </div>
       </div>
@@ -32,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="imagePath">
         <div class="col-xs-12">
           <img [src]="imagePath" class="img-responsive" alt="">
         </div>
