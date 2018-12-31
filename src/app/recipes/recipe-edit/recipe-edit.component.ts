@@ -60,6 +60,9 @@ export class RecipeEditComponent implements OnInit {
   getControls() {
     return (<FormArray>this.recipeForm.get('ingredients')).controls;
   }
+  onDeleteIngredient(index: number){
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+  }
   /** 
    * Initializing form
    * should call it each time our route params change
