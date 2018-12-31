@@ -6,7 +6,11 @@ import { RecipeService } from './recipe.service';
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css'],
-  providers: [RecipeService]
+  /** 
+   * couldnt use it here because when navigating to shopping list we did not
+   * use this instance anymore
+  */
+  // providers: [RecipeService]
 })
 export class RecipesComponent implements OnInit {
   // selectedRecipe: Recipe;
