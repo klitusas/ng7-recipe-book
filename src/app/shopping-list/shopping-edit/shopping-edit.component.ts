@@ -22,16 +22,16 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.slService.startedEditing.subscribe((index: number) => {
-        this.editedItemIndex = index;
-        this.editMode = true;
-        this.editedItem = this.slService.getIngredient(index);
-        this.slForm.setValue({
-            name: this.editedItem.name,
-            amount: this.editedItem.amount
-        })
+      this.editedItemIndex = index;
+      this.editMode = true;
+      this.editedItem = this.slService.getIngredient(index);
+      this.slForm.setValue({
+        name: this.editedItem.name,
+        amount: this.editedItem.amount
+      })
     })
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     /** 
      * Since the Subject type of subscritpion is done by us we need to
      * unsubscribe since angular wont clean it for us 
@@ -44,6 +44,10 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     // const ingredientAmount = this.amountInputRef.nativeElement.value;
     const value = form.value;
     const newIngredient = new Ingredient(value.name, value.amount);
-    this.slService.addIngredient(newIngredient);
+    if(this.editMode){
+      this.slService.updateIngredient(this.editedItemIndex, newIngredient);
+    } else {
+      this.slService.addIngredient(newIngredient);
+    }
   }
 }
