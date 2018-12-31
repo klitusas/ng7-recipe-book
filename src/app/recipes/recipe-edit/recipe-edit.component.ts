@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { RecipeService } from '../recipe.service';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -28,7 +29,9 @@ export class RecipeEditComponent implements OnInit {
       }
     )
   }
-
+  onUrlChanged(){
+    this.imagePath = this.recipeForm.value.imagePath
+  }
   onSubmit() {
     console.log(this.recipeForm)
   }
