@@ -28,6 +28,9 @@ export class RecipeEditComponent implements OnInit {
     )
   }
 
+  onSubmit() {
+    console.log(this.recipeForm)
+  }
   /** 
    * Initializing form
    * should call it each time our route params change
@@ -41,6 +44,7 @@ export class RecipeEditComponent implements OnInit {
       const recipe = this.recipeService.getRecipe(this.id);
       recipeName = recipe.name; 
       recipeImagePath = recipe.imagePath;
+      console.log(recipe)
       recipeDescription = recipe.description;
     }
     this.recipeForm = new FormGroup({
