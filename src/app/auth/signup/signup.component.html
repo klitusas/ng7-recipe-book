@@ -1,3 +1,4 @@
+<h3>Sign up</h3>
 <div class="row col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
   <pre>col-sm-offset-1 col-md-offset-2 - for centering</pre>
   <form (ngSubmit)="onSignup(f)" #f="ngForm">
@@ -9,6 +10,6 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" ngModel class="form-control">
     </div>
-    <button class="btn btn-primary" type="submit">Signup</button>
+    <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Sign up</button>
   </form>
 </div>
