@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { headersToString } from 'selenium-webdriver/http';
 import { DataStorageService } from '../shared/data-storage.service';
 import { Response } from '@angular/http';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -10,7 +11,8 @@ import { Response } from '@angular/http';
 })
 
 export class HeaderComponent {
-    constructor(private dataStorageService: DataStorageService) { }
+    constructor(private dataStorageService: DataStorageService,
+                private authService: AuthService) { }
 
     onSaveData() {
         this.dataStorageService.storeRecipes().subscribe((response: Response) => {
