@@ -25,7 +25,6 @@ export class DataStorageService {
 
                 for (let recipe of recipes) {
                     if (!recipe['ingredients']) {
-                        console.log(recipe)
                         recipe['ingredients'] = [];
                     }
                 }
