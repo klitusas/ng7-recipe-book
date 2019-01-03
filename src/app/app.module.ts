@@ -22,25 +22,28 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthService } from './auth/auth.service';
 import {AuthGuard} from './auth/auth-guard.service'
+import { RecipesModule } from './recipes/recipes.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    DropdownDirective,
-    RecipesStartComponent,
-    RecipeEditComponent,
     SignupComponent,
     SigninComponent
   ],
   imports: [
+    /** 
+     * BrowserModule already contains all the features of the CommonModule
+     * and additional features that needed at the start of the app
+    */
     BrowserModule,
+    /** 
+     * has to be before AppRoutingModule
+     * so the RecipesModule could use the routing
+    */
+    RecipesModule,
     AppRoutingModule,
     FormsModule,
     HttpModule,
