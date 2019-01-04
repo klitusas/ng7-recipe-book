@@ -1,20 +1,24 @@
 import { Routes, RouterModule } from "@angular/router";
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { NgModule } from '@angular/core';
-import { SigninComponent } from './auth/signin/signin.component';
-import { SignupComponent } from './auth/signup/signup.component';
+import { HomeComponent } from './home/home.component';
+
 
 const appRoutes: Routes = [
-    {path: '', redirectTo: '/recipes', pathMatch: 'full'},
+    { path: '', component: HomeComponent },
+    { path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule' },
+    // {path: '', redirectTo: '/recipes', pathMatch: 'full'},
+    /** 
+     * We only have one shopping-list route therefore
+     * it makes little sense to create seperate routing module
+    */
+    { path: 'shopping-list', component: ShoppingListComponent },
 
-    {path: 'shopping-list', component: ShoppingListComponent},
-    {path: 'signup', component: SignupComponent},
-    {path: 'signin', component: SigninComponent},
-  ]
+]
 
-  @NgModule({
-      imports: [RouterModule.forRoot(appRoutes)],
-      exports: [RouterModule]
-  })
+@NgModule({
+    imports: [RouterModule.forRoot(appRoutes)],
+    exports: [RouterModule]
+})
 
-  export class AppRoutingModule {}
+export class AppRoutingModule { }
