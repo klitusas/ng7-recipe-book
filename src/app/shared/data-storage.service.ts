@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
 import 'rxjs/Rx';
 import { AuthService } from '../auth/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class DataStorageService {
-    constructor(private http: Http, 
+    constructor(private httpClient: HttpClient, 
                 private recipeService: RecipeService,
                 private authService: AuthService) { }
 
     storeRecipes() {
         const token = this.authService.getToken();
-        return this.http.put('https://ng-recipe-book-b1647.firebaseio.com/recipes.json?=' + token,
+        return this.httpClient.put('https://ng-recipe-book-b1647.firebaseio.com/recipes.json?=' + token,
             this.recipeService.getRecipes());
     }
 
@@ -31,14 +31,19 @@ export class DataStorageService {
         */
         
         const token = this.authService.getToken();
-        return this.http.get('https://ng-recipe-book-b1647.firebaseio.com/recipes.json?auth=' + token)
-            .map((response: Response) => {
+        //now we can tell HttpClient which data we are getting back
+        return this.httpClient.get<Recipe[]>('https://ng-recipe-book-b1647.firebaseio.com/recipes.json?auth=' + token, {
+            observe: 'body', // now it will not automatically extract the body of the response, we get full response,
+            responseType: 'json' // default is json
+        })
+            //with HttpClient it is not of type Response anymore, it already assumes its json
+            .map((recipes) => {
                 /** 
                  * making sure we always have ingredients key in database
                  * even if there is no ingredients, because we want to fullfll
                  * our Recipe model
                 */
-                const recipes: Recipe[] = response.json();
+                // const recipes: Recipe[] = response.json(); - due to HttpClient 
 
                 for (let recipe of recipes) {
                     if (!recipe['ingredients']) {
@@ -46,6 +51,7 @@ export class DataStorageService {
                     }
                 }
                 return recipes;
+         
             })
             .subscribe((recipes: Recipe[]) => {
                 this.recipeService.setRecipes(recipes);
