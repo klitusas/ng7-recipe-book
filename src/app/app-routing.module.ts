@@ -1,4 +1,4 @@
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './core/home/home.component';
@@ -17,7 +17,15 @@ const appRoutes: Routes = [
 ]
 
 @NgModule({
-    imports: [RouterModule.forRoot(appRoutes)],
+    /** 
+     * we can pass a second argument to forRoot 
+     * and that is a javascript object where we can configure this router module
+     * the default preloadingStrategy is - Dont preload
+     * 
+     * PreloadAllModules - This is a strategy which as the name implies pre-loads
+     * all lazy loaded modules after the app has been loaded.
+    */
+    imports: [RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})],
     exports: [RouterModule]
 })
 
