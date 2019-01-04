@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { headersToString } from 'selenium-webdriver/http';
-import { DataStorageService } from '../shared/data-storage.service';
+import { DataStorageService } from '../../shared/data-storage.service';
 import { Response } from '@angular/http';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
     selector: 'app-header',
