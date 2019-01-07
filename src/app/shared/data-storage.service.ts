@@ -3,7 +3,7 @@ import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
 import 'rxjs/Rx';
 import { AuthService } from '../auth/auth.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 
 @Injectable()
 export class DataStorageService {
@@ -12,9 +12,23 @@ export class DataStorageService {
                 private authService: AuthService) { }
 
     storeRecipes() {
-        const token = this.authService.getToken();
-        return this.httpClient.put('https://ng-recipe-book-b1647.firebaseio.com/recipes.json?=' + token,
-            this.recipeService.getRecipes());
+        //const token = this.authService.getToken();
+        // const headers = new HttpHeaders().set('Authorization', 'Bearer some token that comes from the backend').append('Content-Type', 'application/json');
+        //return this.httpClient.put('https://ng-recipe-book-b1647.firebaseio.com/recipes.json',
+        // return this.httpClient.put('https://ng-recipe-book-b1647.firebaseio.com/recipes.json?auth=' + token,
+            //this.recipeService.getRecipes(), {
+              //  observe: 'body',
+                //params: new HttpParams().set('auth', token)
+                /** 
+                 * Thats how you can set, append, get .. headers with HttpHeaders
+                */
+                // headers: headers
+            //});
+            const req = new HttpRequest('PUT', 'https://ng-recipe-book-b1647.firebaseio.com/recipes.json', this.recipeService.getRecipes(), {
+                reportProgress: true, 
+                // params: new HttpParams().set('auth', token)
+            });
+           return this.httpClient.request(req)
     }
 
     getRecipes() {
@@ -30,9 +44,9 @@ export class DataStorageService {
          * in the auth.service.ts called 'token';
         */
         
-        const token = this.authService.getToken();
+        // const token = this.authService.getToken();
         //now we can tell HttpClient which data we are getting back
-        return this.httpClient.get<Recipe[]>('https://ng-recipe-book-b1647.firebaseio.com/recipes.json?auth=' + token, {
+        return this.httpClient.get<Recipe[]>('https://ng-recipe-book-b1647.firebaseio.com/recipes.json', {
             observe: 'body', // now it will not automatically extract the body of the response, we get full response,
             responseType: 'json' // default is json
         })

@@ -7,6 +7,10 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { RecipeService } from '../recipes/recipe.service';
 import { DataStorageService } from '../shared/data-storage.service';
 import { AuthService } from '../auth/auth.service';
+import { AuthInterceptor } from '../shared/auth.interceptor';
+import { LoggingInterceptor } from '../shared/logging.interceptor';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { AuthGuard } from '../auth/auth-guard.service';
 
 @NgModule({
@@ -41,6 +45,17 @@ import { AuthService } from '../auth/auth.service';
         RecipeService, 
         DataStorageService, 
         AuthService,
+        /** 
+         * This tells angular what we will provide here is an HTTP interceptors. 
+         * So please add it to the pipeline of interceptors you are aware of 
+         * and you send every outgoing request through. So angular will do it automatically
+         * but only if you registered an interceptor by doing this.
+         * 
+         * multi - tells angular you can have multiple of these
+         * The order you set up here the order by which the request will travel for your interceptors.
+        */
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true }
         //the only place we use AuthGuard is in  the recipes-routing.module.ts 
         // AuthGuard
     ],
